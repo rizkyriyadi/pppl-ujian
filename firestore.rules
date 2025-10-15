@@ -1,0 +1,120 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isStudent() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student';
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'superadmin'];
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'superadmin';
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ====================
+    // USERS COLLECTION
+    // ====================
+    match /users/{userId} {
+      // Students can read their own data
+      allow read: if isOwner(userId);
+
+      // Admins can read all users
+      allow read: if isAdmin();
+
+      // Admins can create/update users
+      allow create, update: if isAdmin();
+
+      // Only superadmin can delete users
+      allow delete: if isSuperAdmin();
+    }
+
+    // ====================
+    // EXAMS COLLECTION
+    // ====================
+    match /exams/{examId} {
+      // All authenticated users can read active exams
+      allow read: if isSignedIn();
+
+      // Only admins can create/update/delete exams
+      allow create, update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ====================
+    // QUESTIONS COLLECTION
+    // ====================
+    match /questions/{questionId} {
+      // All authenticated users can read questions
+      allow read: if isSignedIn();
+
+      // Only admins can create/update/delete questions
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ====================
+    // EXAM ATTEMPTS COLLECTION
+    // ====================
+    match /examAttempts/{attemptId} {
+      // Students can read their own attempts
+      allow read: if isSignedIn() &&
+                     resource.data.studentId == request.auth.uid;
+
+      // Admins can read all attempts
+      allow read: if isAdmin();
+
+      // Students can create attempts for themselves
+      allow create: if isSignedIn() &&
+                       request.resource.data.studentId == request.auth.uid &&
+                       request.resource.data.keys().hasAll([
+                         'examId', 'examTitle', 'studentId', 'studentName',
+                         'studentClass', 'answers', 'score', 'totalQuestions',
+                         'correctAnswers', 'incorrectAnswers', 'unanswered',
+                         'timeSpent', 'isPassed', 'status'
+                       ]);
+
+      // No one can update or delete attempts (data integrity)
+      allow update, delete: if false;
+    }
+
+    // ====================
+    // ANALYTICS COLLECTION
+    // ====================
+    match /analytics/{analyticsId} {
+      // Admins can read/write analytics
+      allow read, write: if isAdmin();
+
+      // Students cannot access analytics
+      allow read, write: if false;
+    }
+
+    // ====================
+    // SETTINGS COLLECTION
+    // ====================
+    match /settings/{document=**} {
+      // Everyone can read settings
+      allow read: if isSignedIn();
+
+      // Only superadmin can update settings
+      allow update: if isSuperAdmin();
+
+      // No one can delete settings
+      allow delete: if false;
+    }
+  }
+}

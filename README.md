@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ujian Online - SDN Pasir Gunung Selatan 1
 
-## Getting Started
+Platform ujian online untuk siswa SDN Pasir Gunung Selatan 1. Website ini dibuat dengan Next.js 15, Firebase, dan Tailwind CSS.
 
-First, run the development server:
+## Features
+
+- Login dengan NISN
+- Dashboard ujian
+- Interface pengerjaan ujian dengan timer
+- Auto-submit ketika waktu habis
+- Hasil ujian dengan scoring otomatis
+- History hasil ujian
+- Responsive design
+
+## Tech Stack
+
+- **Frontend**: Next.js 15 (App Router) + TypeScript
+- **Styling**: Tailwind CSS 4
+- **Backend/Database**: Firebase (Firestore + Authentication)
+- **Hosting**: Vercel (Free Tier)
+
+## Setup Instructions
+
+### 1. Clone Repository
+
+```bash
+git clone <repository-url>
+cd ujian
+npm install
+```
+
+### 2. Setup Firebase
+
+1. Buat project baru di [Firebase Console](https://console.firebase.google.com/)
+2. Enable **Authentication** > Sign-in method > Email/Password
+3. Enable **Firestore Database**
+4. Copy Firebase config dari Project Settings > General > Your apps > Web app
+
+### 3. Environment Variables
+
+Buat file `.env.local` di root project dan isi dengan config Firebase:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key-here
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+```
+
+### 4. Firebase Security Rules
+
+Di Firebase Console > Firestore Database > Rules, paste rules berikut:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /students/{studentId} {
+      allow read: if request.auth != null && request.auth.uid == studentId;
+      allow write: if false;
+    }
+
+    match /exams/{examId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    match /examAttempts/{attemptId} {
+      allow read: if request.auth != null && resource.data.studentId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.studentId == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}
+```
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 6. Setup Database Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Lihat `FIREBASE_STRUCTURE.md` untuk detail struktur database.
 
-## Learn More
+Untuk membuat data dummy, gunakan Firebase Console untuk menambahkan:
+- Collection `exams` dengan sample ujian
+- Users di Authentication dengan format email: `{nisn}@student.sdnpgs1.sch.id`
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push code ke GitHub
+2. Import project di [Vercel](https://vercel.com)
+3. Add environment variables di Vercel project settings
+4. Deploy!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── dashboard/         # Dashboard list ujian
+│   ├── exam/[id]/        # Interface pengerjaan ujian
+│   ├── login/            # Halaman login
+│   ├── results/          # History hasil ujian
+│   ├── layout.tsx
+│   └── page.tsx          # Root redirect
+├── components/           # Reusable components (future)
+└── lib/
+    ├── firebase.ts       # Firebase config
+    ├── AuthContext.tsx   # Auth state management
+    └── types.ts          # TypeScript types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Next Steps
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Admin Panel**: Buat project terpisah untuk CRUD ujian dan melihat hasil siswa
+- **AI Integration**: Integrate Google Gemini API di admin panel untuk analisis hasil
+- **Domain**: Beli domain murah (under 20k) dan connect ke Vercel
+
+## Cost Breakdown
+
+- Next.js hosting: **FREE** (Vercel)
+- Firebase: **FREE** (Spark plan, cukup untuk SD)
+- Domain: **~20k/year** (sekali pakai, tidak perlu perpanjang)
+- **Total: ~20k untuk 1 tahun**
+
+---
+
+Built for SDN Pasir Gunung Selatan 1
