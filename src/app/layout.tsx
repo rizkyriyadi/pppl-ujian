@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ujian Online - SDN Pasir Gunung Selatan 1",
-  description: "Platform ujian online untuk siswa SDN Pasir Gunung Selatan 1",
+  title: "Ujian Online - SDN TUGU 1",
+  description: "Platform ujian online untuk siswa SDN TUGU 1",
 };
 
 export default function RootLayout({

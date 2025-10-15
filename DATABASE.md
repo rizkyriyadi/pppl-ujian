@@ -317,7 +317,7 @@ System-wide settings.
 **Document: `config`**
 ```javascript
 {
-  schoolName: "SDN Pasir Gunung Selatan 1",
+  schoolName: "SDN TUGU 1",
   schoolAddress: "Jl. ...",
   academicYear: "2024/2025",
   geminiApiKey: "AIza...",  // For admin AI features

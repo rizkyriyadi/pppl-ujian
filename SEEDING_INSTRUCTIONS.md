@@ -49,7 +49,7 @@ Since production rules require admin role, create first admin manually:
 1. **Create Admin in Authentication:**
    - Firebase Console > Authentication > Users
    - Click "Add User"
-   - Email: `admin@sdnpgs1.sch.id`
+   - Email: `admin@sdntugu1.sch.id`
    - Password: `admin123`
    - Copy the **User UID** (you'll need this!)
 
@@ -61,7 +61,7 @@ Since production rules require admin role, create first admin manually:
      - `uid` (string): **Same UID**
      - `role` (string): `superadmin`
      - `name` (string): `Admin Guru`
-     - `email` (string): `admin@sdnpgs1.sch.id`
+     - `email` (string): `admin@sdntugu1.sch.id`
      - `isActive` (boolean): `true`
      - `createdAt` (timestamp): Click "Set to current time"
      - `updatedAt` (timestamp): Click "Set to current time"
@@ -121,8 +121,8 @@ Since regular seeding script won't work with production rules (no auth context),
 When successfully run, it creates:
 
 ### Authentication Users (6 total)
-- 1 admin: `admin@sdnpgs1.sch.id`
-- 5 students: `{nisn}@student.sdnpgs1.sch.id`
+- 1 admin: `admin@sdntugu1.sch.id`
+- 5 students: `{nisn}@student.sdntugu1.sch.id`
 
 ### Firestore Collections
 

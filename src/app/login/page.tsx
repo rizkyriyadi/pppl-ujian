@@ -19,7 +19,7 @@ export default function LoginPage() {
 
     try {
       // Convert NISN to email format for Firebase auth
-      const email = `${nisn}@student.sdnpgs1.sch.id`;
+      const email = `${nisn}@student.sdntugu1.sch.id`;
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/dashboard');
     } catch (err) {
@@ -40,7 +40,7 @@ export default function LoginPage() {
               Ujian Online
             </h1>
             <p className="text-gray-600">
-              SDN Pasir Gunung Selatan 1
+              SDN TUGU 1
             </p>
           </div>
 

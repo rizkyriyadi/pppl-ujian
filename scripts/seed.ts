@@ -58,7 +58,7 @@ const sampleStudents = [
 
 // 2. Sample Admin
 const sampleAdmin = {
-  email: 'admin@sdnpgs1.sch.id',
+  email: 'admin@sdntugu1.sch.id',
   name: 'Admin Guru',
   password: 'admin123'
 };
@@ -338,7 +338,7 @@ async function seedStudents() {
   for (const student of sampleStudents) {
     try {
       // Create auth account
-      const email = `${student.nisn}@student.sdnpgs1.sch.id`;
+      const email = `${student.nisn}@student.sdntugu1.sch.id`;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,

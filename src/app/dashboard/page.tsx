@@ -92,7 +92,7 @@ export default function DashboardPage() {
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-xl font-semibold text-gray-900">Ujian Online</h1>
-            <p className="text-sm text-gray-600">SDN Pasir Gunung Selatan 1</p>
+            <p className="text-sm text-gray-600">SDN TUGU 1</p>
           </div>
           <button
             onClick={handleLogout}

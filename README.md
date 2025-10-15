@@ -1,6 +1,6 @@
-# Ujian Online - SDN Pasir Gunung Selatan 1
+# Ujian Online - SDN TUGU 1
 
-Platform ujian online untuk siswa SDN Pasir Gunung Selatan 1. Website ini dibuat dengan Next.js 15, Firebase, dan Tailwind CSS.
+Platform ujian online untuk siswa SDN TUGU 1. Website ini dibuat dengan Next.js 15, Firebase, dan Tailwind CSS.
 
 ## Features
 
@@ -90,7 +90,7 @@ Lihat `FIREBASE_STRUCTURE.md` untuk detail struktur database.
 
 Untuk membuat data dummy, gunakan Firebase Console untuk menambahkan:
 - Collection `exams` dengan sample ujian
-- Users di Authentication dengan format email: `{nisn}@student.sdnpgs1.sch.id`
+- Users di Authentication dengan format email: `{nisn}@student.sdntugu1.sch.id`
 
 ## Deploy to Vercel
 
@@ -132,4 +132,4 @@ src/
 
 ---
 
-Built for SDN Pasir Gunung Selatan 1
+Built for SDN TUGU 1

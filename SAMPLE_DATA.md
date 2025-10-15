@@ -5,7 +5,7 @@
 Di Firebase Console > Authentication:
 
 1. Click "Add User"
-2. Email: `1234567890@student.sdnpgs1.sch.id`
+2. Email: `1234567890@student.sdntugu1.sch.id`
 3. Password: `password123`
 4. Uid akan di-generate otomatis
 

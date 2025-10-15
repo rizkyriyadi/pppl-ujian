@@ -1,6 +1,6 @@
 # 🎯 Project Complete Summary
 
-## Platform Ujian Online - SDN Pasir Gunung Selatan 1
+## Platform Ujian Online - SDN TUGU 1
 
 Sistem ujian online lengkap dengan database scalable, security rules, dan ready untuk admin panel integration.
 
@@ -115,7 +115,7 @@ ujian/
 
 ### Admin Account
 ```
-Email: admin@sdnpgs1.sch.id
+Email: admin@sdntugu1.sch.id
 Password: admin123
 ```
 
@@ -202,7 +202,7 @@ git push
   uid: "abc123",                    // Firebase Auth UID
   role: "student|admin|superadmin", // Role-based access
   name: "Ahmad Rizki",
-  email: "1234567890@student.sdnpgs1.sch.id",
+  email: "1234567890@student.sdntugu1.sch.id",
   nisn: "1234567890",               // Students only
   class: "4A",                      // Students only
   isActive: true,
