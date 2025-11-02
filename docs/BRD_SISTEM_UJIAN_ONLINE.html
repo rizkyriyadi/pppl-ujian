@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Requirements Document - Sistem Ujian Online SDN TUGU 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        
+        h4 {
+            color: #34495e;
+            margin-top: 25px;
+        }
+        
+        .toc {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .mermaid {
+            text-align: center;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .business-rule {
+            background: #e8f6f3;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .problem-box {
+            background: #fdf2e9;
+            border-left: 4px solid #e67e22;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .benefit-box {
+            background: #eafaf1;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #bdc3c7;
+        }
+        
+        .signature-box {
+            display: inline-block;
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #34495e;
+            margin: 40px 0 10px 0;
+            height: 60px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Requirements Document (BRD)</h1>
+        <h2 style="text-align: center; color: #3498db;">Sistem Ujian Online - SDN TUGU 1</h2>
+        
+        <div class="toc">
+            <h3>Daftar Isi</h3>
+            <ul>
+                <li><a href="#version-control">Version Control</a></li>
+                <li><a href="#introduction">1. Introduction</a>
+                    <ul>
+                        <li><a href="#project-summary">1.1 Project Summary</a></li>
+                        <li><a href="#project-scope">1.2 Project Scope</a></li>
+                    </ul>
+                </li>
+                <li><a href="#business-process">2. Business Process Overview</a>
+                    <ul>
+                        <li><a href="#as-is">2.1 Current Business Process (As-Is)</a></li>
+                        <li><a href="#to-be">2.2 Proposed Business Process (To-Be)</a></li>
+                        <li><a href="#business-rules">2.3 Business Rules</a></li>
+                    </ul>
+                </li>
+                <li><a href="#attachment">3. Attachment</a>
+                    <ul>
+                        <li><a href="#acronyms">3.1 List of Acronyms</a></li>
+                        <li><a href="#related-docs">3.2 Related Documents</a></li>
+                        <li><a href="#diagrams">3.3 Mindmap & Diagrams</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h2 id="version-control">Version Control</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Versi</th>
+                    <th>Tanggal</th>
+                    <th>Penulis</th>
+                    <th>Email</th>
+                    <th>Changelog</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1.0</td>
+                    <td>2024-01-15</td>
+                    <td>Tim Business Analyst</td>
+                    <td>ba@sdntugu1.sch.id</td>
+                    <td>Dokumen awal BRD Sistem Ujian Online</td>
+                </tr>
+                <tr>
+                    <td>1.1</td>
+                    <td>2024-01-20</td>
+                    <td>Tim Business Analyst</td>
+                    <td>ba@sdntugu1.sch.id</td>
+                    <td>Penambahan business process dan database relations</td>
+                </tr>
+                <tr>
+                    <td>1.2</td>
+                    <td>2024-01-25</td>
+                    <td>Tim Business Analyst</td>
+                    <td>ba@sdntugu1.sch.id</td>
+                    <td>Revisi scope dan business rules</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="introduction">1. Introduction</h2>
+        
+        <h3 id="project-summary">1.1 Project Summary</h3>
+        
+        <h4>1.1.1 Background</h4>
+        <p>SDN TUGU 1 saat ini masih menggunakan sistem ujian konvensional berbasis kertas yang memiliki beberapa keterbatasan:</p>
+        
+        <div class="problem-box">
+            <h4>Permasalahan Sistem Saat Ini:</h4>
+            <ul>
+                <li><strong>Proses Manual:</strong> Pembuatan soal, distribusi, dan penilaian masih dilakukan secara manual</li>
+                <li><strong>Waktu Penilaian Lama:</strong> Guru membutuhkan waktu berhari-hari untuk mengoreksi hasil ujian</li>
+                <li><strong>Risiko Kehilangan Data:</strong> Lembar jawaban fisik rentan hilang atau rusak</li>
+                <li><strong>Keterbatasan Monitoring:</strong> Sulit memantau progress siswa secara real-time</li>
+                <li><strong>Biaya Operasional Tinggi:</strong> Biaya cetak kertas dan logistik distribusi soal</li>
+                <li><strong>Kesulitan Analisis:</strong> Sulit menganalisis pola jawaban dan tingkat kesulitan soal</li>
+            </ul>
+        </div>
+
+        <h4>1.1.2 Objective & Benefits</h4>
+        
+        <div class="benefit-box">
+            <h4>Tujuan Utama:</h4>
+            <ol>
+                <li><strong>Digitalisasi Proses Ujian:</strong> Mengubah sistem ujian dari manual ke digital</li>
+                <li><strong>Otomatisasi Penilaian:</strong> Sistem penilaian otomatis untuk efisiensi waktu</li>
+                <li><strong>Peningkatan Akurasi:</strong> Mengurangi human error dalam proses penilaian</li>
+                <li><strong>Real-time Monitoring:</strong> Memantau progress ujian secara langsung</li>
+                <li><strong>Data Analytics:</strong> Menganalisis performa siswa dan efektivitas soal</li>
+            </ol>
+        </div>
+
+        <h3 id="project-scope">1.2 Project Scope</h3>
+        
+        <h4>1.2.1 In Scope Functionality</h4>
+        <ul>
+            <li><strong>Modul Autentikasi:</strong> Login siswa menggunakan NISN, verifikasi identitas, session management</li>
+            <li><strong>Modul Dashboard:</strong> Daftar ujian tersedia, informasi detail ujian, navigasi sistem</li>
+            <li><strong>Modul Pelaksanaan Ujian:</strong> Interface pengerjaan soal, timer otomatis, auto-save jawaban</li>
+            <li><strong>Modul Penilaian:</strong> Penilaian otomatis, perhitungan skor, penentuan status kelulusan</li>
+            <li><strong>Modul Hasil dan Riwayat:</strong> Tampilan hasil ujian, riwayat ujian, export hasil</li>
+        </ul>
+
+        <h4>1.2.2 Out Scope Functionality</h4>
+        <ul>
+            <li>Modul Admin/Guru untuk pembuatan soal</li>
+            <li>Sistem notifikasi email/SMS</li>
+            <li>Video proctoring dan monitoring webcam</li>
+            <li>Advanced analytics dashboard</li>
+            <li>Mobile application (hanya web-based)</li>
+            <li>Integration dengan LMS lain</li>
+        </ul>
+
+        <h2 id="business-process">2. Business Process Overview</h2>
+        
+        <h3 id="as-is">2.1 Current Business Process (As-Is)</h3>
+        
+        <div class="mermaid">
+            flowchart TD
+                A[Guru Membuat Soal Manual] --> B[Cetak Lembar Soal & Jawaban]
+                B --> C[Distribusi ke Kelas]
+                C --> D[Siswa Mengerjakan di Kertas]
+                D --> E[Pengumpulan Lembar Jawaban]
+                E --> F[Guru Mengoreksi Manual]
+                F --> G[Input Nilai ke Buku/Excel]
+                G --> H[Pengumuman Hasil]
+                
+                style A fill:#ffcccc
+                style F fill:#ffcccc
+                style G fill:#ffcccc
+        </div>
+
+        <div class="problem-box">
+            <h4>Permasalahan Proses Saat Ini:</h4>
+            <ul>
+                <li><strong>Waktu Koreksi Lama:</strong> 2-3 hari untuk mengoreksi satu kelas</li>
+                <li><strong>Risiko Human Error:</strong> Kesalahan dalam penghitungan nilai</li>
+                <li><strong>Biaya Tinggi:</strong> Cetak kertas dan logistik</li>
+                <li><strong>Penyimpanan Fisik:</strong> Membutuhkan ruang penyimpanan besar</li>
+                <li><strong>Sulit Dianalisis:</strong> Data tidak terstruktur untuk analisis</li>
+            </ul>
+        </div>
+
+        <h3 id="to-be">2.2 Proposed Business Process (To-Be)</h3>
+        
+        <div class="mermaid">
+            flowchart TD
+                A[Admin Upload Soal ke Sistem] --> B[Sistem Generate Ujian Online]
+                B --> C[Siswa Login dengan NISN]
+                C --> D[Siswa Pilih Ujian Tersedia]
+                D --> E[Sistem Load Soal & Start Timer]
+                E --> F[Siswa Mengerjakan Online]
+                F --> G[Auto-save Jawaban Real-time]
+                G --> H[Submit Otomatis/Manual]
+                H --> I[Sistem Hitung Nilai Otomatis]
+                I --> J[Hasil Tersedia Langsung]
+                J --> K[Siswa Lihat Hasil & Riwayat]
+                
+                style I fill:#ccffcc
+                style J fill:#ccffcc
+                style K fill:#ccffcc
+        </div>
+
+        <div class="benefit-box">
+            <h4>Keunggulan Proses Baru:</h4>
+            <ul>
+                <li><strong>Penilaian Instan:</strong> Hasil tersedia segera setelah submit</li>
+                <li><strong>Zero Human Error:</strong> Penilaian 100% akurat</li>
+                <li><strong>Paperless:</strong> Tidak membutuhkan kertas</li>
+                <li><strong>Data Terstruktur:</strong> Mudah untuk analisis dan pelaporan</li>
+                <li><strong>Real-time Monitoring:</strong> Pantau progress ujian langsung</li>
+            </ul>
+        </div>
+
+        <h3 id="business-rules">2.3 Business Rules</h3>
+        
+        <div class="business-rule">
+            <h4>Aturan Autentikasi</h4>
+            <ol>
+                <li><strong>BR-AUTH-001:</strong> Siswa hanya dapat login menggunakan NISN yang terdaftar</li>
+                <li><strong>BR-AUTH-002:</strong> Format email otomatis: {nisn}@sdntugu1.sch.id</li>
+                <li><strong>BR-AUTH-003:</strong> Session timeout setelah 2 jam tidak aktif</li>
+                <li><strong>BR-AUTH-004:</strong> Maksimal 3 kali percobaan login gagal</li>
+            </ol>
+        </div>
+
+        <div class="business-rule">
+            <h4>Aturan Ujian</h4>
+            <ol start="5">
+                <li><strong>BR-EXAM-001:</strong> Siswa hanya dapat mengakses ujian yang sesuai dengan kelasnya</li>
+                <li><strong>BR-EXAM-002:</strong> Ujian hanya dapat diakses dalam rentang waktu yang ditentukan</li>
+                <li><strong>BR-EXAM-003:</strong> Satu siswa hanya dapat mengerjakan ujian yang sama sekali</li>
+                <li><strong>BR-EXAM-004:</strong> Timer ujian tidak dapat dihentikan atau direset</li>
+                <li><strong>BR-EXAM-005:</strong> Jawaban tersimpan otomatis setiap 30 detik</li>
+                <li><strong>BR-EXAM-006:</strong> Submit otomatis ketika waktu habis</li>
+            </ol>
+        </div>
+
+        <h2 id="attachment">3. Attachment</h2>
+        
+        <h3 id="acronyms">3.1 List of Acronyms</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Acronym</th>
+                    <th>Kepanjangan</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>BRD</td><td>Business Requirements Document</td><td>Dokumen kebutuhan bisnis</td></tr>
+                <tr><td>FSD</td><td>Functional Specification Document</td><td>Dokumen spesifikasi fungsional</td></tr>
+                <tr><td>NISN</td><td>Nomor Induk Siswa Nasional</td><td>Identitas unik siswa</td></tr>
+                <tr><td>UI</td><td>User Interface</td><td>Antarmuka pengguna</td></tr>
+                <tr><td>UX</td><td>User Experience</td><td>Pengalaman pengguna</td></tr>
+                <tr><td>API</td><td>Application Programming Interface</td><td>Interface pemrograman aplikasi</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="diagrams">3.3 Database Relationship Diagram</h3>
+        
+        <div class="mermaid">
+            erDiagram
+                USERS {
+                    string id PK
+                    string name
+                    string nisn UK
+                    string email UK
+                    string class
+                    string role
+                    timestamp createdAt
+                    timestamp updatedAt
+                }
+                
+                EXAMS {
+                    string id PK
+                    string title
+                    string description
+                    string subject
+                    string grade
+                    number duration
+                    number totalQuestions
+                    number passingScore
+                    boolean isActive
+                    string createdBy FK
+                    timestamp createdAt
+                    timestamp scheduledDate
+                }
+                
+                QUESTIONS {
+                    string id PK
+                    string examId FK
+                    string questionText
+                    number questionNumber
+                    array options
+                    string correctAnswer
+                    string subject
+                    string difficulty
+                    string explanation
+                    string imageUrl
+                }
+                
+                EXAM_ATTEMPTS {
+                    string id PK
+                    string examId FK
+                    string userId FK
+                    string examTitle
+                    map answers
+                    number score
+                    number totalQuestions
+                    number correctAnswers
+                    boolean isPassed
+                    timestamp startTime
+                    timestamp endTime
+                    timestamp submittedAt
+                }
+                
+                USERS ||--o{ EXAM_ATTEMPTS : "mengerjakan"
+                EXAMS ||--o{ QUESTIONS : "memiliki"
+                EXAMS ||--o{ EXAM_ATTEMPTS : "dikerjakan_dalam"
+                USERS ||--o{ EXAMS : "membuat"
+        </div>
+
+        <h4>User Flow Diagram</h4>
+        <div class="mermaid">
+            flowchart TD
+                Start([Siswa Buka Aplikasi]) --> Login{Sudah Login?}
+                Login -->|Tidak| LoginPage[Halaman Login]
+                Login -->|Ya| Dashboard[Dashboard]
+                
+                LoginPage --> InputNISN[Input NISN]
+                InputNISN --> Validate{Valid?}
+                Validate -->|Tidak| Error[Tampil Error]
+                Error --> LoginPage
+                Validate -->|Ya| Dashboard
+                
+                Dashboard --> ExamList[Lihat Daftar Ujian]
+                Dashboard --> History[Lihat Riwayat]
+                Dashboard --> Profile[Profile]
+                
+                ExamList --> SelectExam[Pilih Ujian]
+                SelectExam --> ExamDetail[Detail Ujian]
+                ExamDetail --> StartExam{Mulai Ujian?}
+                StartExam -->|Ya| ExamPage[Halaman Ujian]
+                StartExam -->|Tidak| Dashboard
+                
+                ExamPage --> AnswerQuestion[Jawab Soal]
+                AnswerQuestion --> NextQuestion{Soal Terakhir?}
+                NextQuestion -->|Tidak| AnswerQuestion
+                NextQuestion -->|Ya| SubmitExam[Submit Ujian]
+                
+                SubmitExam --> ResultPage[Halaman Hasil]
+                ResultPage --> Dashboard
+                
+                History --> HistoryDetail[Detail Riwayat]
+                HistoryDetail --> Dashboard
+                
+                Profile --> Logout[Logout]
+                Logout --> LoginPage
+                
+                style Start fill:#e1f5fe
+                style Dashboard fill:#f3e5f5
+                style ExamPage fill:#e8f5e8
+                style ResultPage fill:#fff8e1
+        </div>
+
+        <div class="signature-section">
+            <h3>Tanda Tangan</h3>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <div class="signature-box">
+                    <strong>Business Analyst</strong>
+                    <div class="signature-line"></div>
+                    <p>Nama: [Nama BA]<br>Tanggal: _______________</p>
+                </div>
+                <div class="signature-box">
+                    <strong>Project Manager</strong>
+                    <div class="signature-line"></div>
+                    <p>Nama: [Nama PM]<br>Tanggal: _______________</p>
+                </div>
+                <div class="signature-box">
+                    <strong>Kepala Sekolah</strong>
+                    <div class="signature-line"></div>
+                    <p>Nama: Drs. Ahmad Suryadi, M.Pd<br>Tanggal: _______________</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            er: {
+                useMaxWidth: true
+            }
+        });
+    </script>
+</body>
+</html>

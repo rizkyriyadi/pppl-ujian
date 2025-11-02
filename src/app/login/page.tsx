@@ -19,7 +19,17 @@ export default function LoginPage() {
 
     try {
       // Convert NISN to email format for Firebase auth
-      const email = `${nisn}@student.sdntugu1.sch.id`;
+      // Extract first name from password (password format: firstname + 4 digit nisn)
+      // We need to figure out the first name by querying the database
+      // But for now, we'll ask user to provide their name or use a lookup
+      
+      // For now, construct email as: {password without last 4 digits}.{last 4 digits nisn}@students.pppl.id
+      // Since password = firstname + last4nisn, we can extract firstname from password
+      const lastFourNisn = nisn.slice(-4);
+      // Remove the last 4 digits from password to get the first name
+      const firstName = password.slice(0, -4);
+      const email = `${firstName}.${lastFourNisn}@students.pppl.id`;
+      
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/dashboard');
     } catch (err) {
@@ -93,7 +103,10 @@ export default function LoginPage() {
 
           {/* Footer */}
           <div className="mt-6 text-center text-sm text-gray-500">
-            Pastikan NISN dan password sudah benar
+            <p className="mb-2">Pastikan NISN dan password sudah benar</p>
+            <p className="text-xs text-gray-400">
+              Password format: Nama depan (lowercase) + 4 digit terakhir NISN
+            </p>
           </div>
         </div>
       </div>

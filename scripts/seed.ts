@@ -49,11 +49,11 @@ const auth = getAuth(app);
 
 // 1. Sample Students
 const sampleStudents = [
-  { nisn: '1234567890', name: 'Ahmad Rizki', class: '4A', password: 'password123' },
-  { nisn: '1234567891', name: 'Siti Aisyah', class: '4A', password: 'password123' },
-  { nisn: '1234567892', name: 'Budi Santoso', class: '4B', password: 'password123' },
-  { nisn: '1234567893', name: 'Dewi Lestari', class: '5A', password: 'password123' },
-  { nisn: '1234567894', name: 'Eko Prasetyo', class: '5B', password: 'password123' },
+  { nisn: '1234567890', name: 'Ahmad Rizki', class: '4A' },
+  { nisn: '1234567891', name: 'Siti Aisyah', class: '4A' },
+  { nisn: '1234567892', name: 'Budi Santoso', class: '4B' },
+  { nisn: '1234567893', name: 'Dewi Lestari', class: '5A' },
+  { nisn: '1234567894', name: 'Eko Prasetyo', class: '5B' },
 ];
 
 // 2. Sample Admin
@@ -337,12 +337,17 @@ async function seedStudents() {
 
   for (const student of sampleStudents) {
     try {
+      // Generate password: nama + 4 digit terakhir nisn
+      const lastFourNisn = student.nisn.slice(-4);
+      const password = `${student.name}${lastFourNisn}`;
+
       // Create auth account
-      const email = `${student.nisn}@student.sdntugu1.sch.id`;
+      // Format: {4 digit terakhir nisn}@students.pppl.id
+      const email = `${lastFourNisn}@students.pppl.id`;
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        student.password
+        password
       );
 
       const uid = userCredential.user.uid;
@@ -489,8 +494,10 @@ async function seedDatabase() {
     console.log(`   Email: ${sampleAdmin.email}`);
     console.log(`   Password: ${sampleAdmin.password}`);
     console.log('\nSample Student:');
+    const sampleLastFour = sampleStudents[0].nisn.slice(-4);
+    const samplePassword = `${sampleStudents[0].name}${sampleLastFour}`;
     console.log(`   NISN: ${sampleStudents[0].nisn}`);
-    console.log(`   Password: ${sampleStudents[0].password}\n`);
+    console.log(`   Password: ${samplePassword}\n`);
 
     process.exit(0);
   } catch (error) {
