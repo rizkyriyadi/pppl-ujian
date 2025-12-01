@@ -6,6 +6,7 @@ import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { SkeletonLoader } from '@/components/ui/SkeletonLoader';
 import { User, Lock, CheckCircle2 } from 'lucide-react';
+import { getEmailByNisn } from '@/app/actions/auth';
 
 export default function LoginPage() {
   const [nisn, setNisn] = useState('');
@@ -30,12 +31,16 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      // Convert NISN to email format for Firebase auth
-      const lastFourNisn = nisn.slice(-4);
-      // Remove the last 4 digits from password to get the first name
-      const firstName = password.slice(0, -4);
-      const email = `${firstName}.${lastFourNisn}@students.pppl.id`;
-      
+      // Try to get email from server first (reliable)
+      let email = await getEmailByNisn(nisn);
+
+      if (!email) {
+        // Fallback to legacy logic (unreliable for custom passwords)
+        const lastFourNisn = nisn.slice(-4);
+        const firstName = password.slice(0, -4);
+        email = `${firstName}.${lastFourNisn}@students.pppl.id`;
+      }
+
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/dashboard');
     } catch (err) {
