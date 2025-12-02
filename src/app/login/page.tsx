@@ -6,7 +6,7 @@ import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { SkeletonLoader } from '@/components/ui/SkeletonLoader';
 import { User, Lock, CheckCircle2 } from 'lucide-react';
-import { getEmailByNisn } from '@/app/actions/auth';
+import { getEmailByIdentifier } from '@/app/actions/auth';
 
 export default function LoginPage() {
   const [nisn, setNisn] = useState('');
@@ -32,7 +32,7 @@ export default function LoginPage() {
 
     try {
       // Try to get email from server first (reliable)
-      let email = await getEmailByNisn(nisn);
+      let email = await getEmailByIdentifier(nisn);
 
       if (!email) {
         // Fallback to legacy logic (unreliable for custom passwords)
@@ -44,7 +44,7 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/dashboard');
     } catch (err) {
-      setError('NISN atau password salah');
+      setError('NISN/NPM atau password salah');
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -77,14 +77,14 @@ export default function LoginPage() {
                 <div className="space-y-2">
                   <label htmlFor="nisn" className="flex items-center text-sm font-medium text-gray-700 mb-2">
                     <User className="w-4 h-4 mr-2 text-blue-600" />
-                    NISN
+                    NISN / NPM
                   </label>
                   <input
                     type="text"
                     id="nisn"
                     value={nisn}
                     onChange={(e) => setNisn(e.target.value)}
-                    placeholder="Masukkan Nisn"
+                    placeholder="Masukkan NISN atau NPM"
                     disabled={isSubmitting}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
                     required
